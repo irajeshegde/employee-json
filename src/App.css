@@ -1,14 +1,25 @@
 .App {
-    margin: 2%
+  margin: 2%;
 }
 
 .box {
-    margin: 2% 20%;
+  margin: 2% 20%;
 }
 
 .box-center {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 2%
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2%;
+}
+
+.in {
+  display: inline;
+}
+.in-m {
+  margin: 2%;
+}
+.mr {
+  margin-right: 2%;
+  margin-bottom: 2%;
 }
