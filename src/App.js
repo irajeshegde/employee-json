@@ -70,7 +70,7 @@ class App extends React.Component {
   };
   handleSkills = (e) => {
     e.preventDefault();
-    if (this.state.skills === "") {
+    if (this.state.skill === "") {
       this.setState({ skillsError: true });
       return;
     }
