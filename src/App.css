@@ -1,5 +1,5 @@
 .App {
-  margin: 2%;
+  margin: 0% 2%;
 }
 
 .box {
@@ -16,9 +16,11 @@
 .in {
   display: inline;
 }
+
 .in-m {
   margin: 2%;
 }
+
 .mr {
   margin-right: 2%;
   margin-bottom: 2%;
