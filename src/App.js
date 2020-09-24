@@ -23,7 +23,8 @@ class App extends React.Component {
     show: false,
     contactError: false,
     contactOverflow: false,
-    phoneError: false,
+    phoneError1: false,
+    phoneError2: false,
     skillsError: false,
   };
   contact = [];
@@ -38,6 +39,8 @@ class App extends React.Component {
         phoneError: false,
         skillsError: false,
         contactOverflow: false,
+        plusError1: false,
+        plusError2: false,
       });
     }
   };
@@ -46,10 +49,17 @@ class App extends React.Component {
     e.preventDefault();
 
     if (this.contact.length === 0) {
-      this.setState({ contactError: true });
+      this.setState({ plusError1: true });
       return;
     }
-
+    if (this.state.type.length > 0 || this.state.number.length > 0) {
+      this.setState({ plusError1: true });
+      return;
+    }
+    if (this.state.skill.length > 0) {
+      this.setState({ plusError2: true });
+      return;
+    }
     this.employee = [
       ...this.employee,
       {
@@ -63,7 +73,20 @@ class App extends React.Component {
             : ``,
       },
     ];
-    this.setState({ name: "", designation: "", dob: "" });
+    this.setState({
+      name: "",
+      designation: "",
+      type: "",
+      number: "",
+      skill: "",
+      dob: "",
+      contactError: false,
+      phoneError: false,
+      skillsError: false,
+      contactOverflow: false,
+      plusError1: false,
+      plusError2: false,
+    });
     this.contact = [];
     this.skills = [];
   };
@@ -76,6 +99,7 @@ class App extends React.Component {
     this.skills = [...this.skills, this.state.skill];
     this.setState({
       skill: "",
+      plusError2: false,
     });
   };
   handleContact = (e) => {
@@ -86,10 +110,11 @@ class App extends React.Component {
       this.setState({
         type: "",
         number: "",
+        plusError1: false,
       });
       return;
     }
-    if (this.state.type === "" || this.state.number === "") {
+    if (this.state.type === "" && this.state.number === "") {
       this.setState({ contactError: true });
       return;
     } else {
@@ -106,10 +131,10 @@ class App extends React.Component {
         return;
       }
     }
-
     this.setState({
       type: "",
       number: "",
+      plusError1: false,
     });
   };
   render() {
@@ -125,6 +150,8 @@ class App extends React.Component {
       contactError,
       phoneError,
       skillsError,
+      plusError1,
+      plusError2,
     } = this.state;
     return (
       <div className="App">
@@ -201,17 +228,22 @@ class App extends React.Component {
                 </Form.Group>
                 {contactOverflow && (
                   <Label basic color="red">
-                    Contact details cann't be more than 4{" "}
+                    Contact details can't be more than 4{" "}
                   </Label>
                 )}
                 {contactError && (
                   <Label basic color="red">
-                    Type and Number cann't be empty
+                    Type and Number can't be empty
                   </Label>
                 )}
                 {phoneError && (
                   <Label basic color="red">
-                    Invalid phone number
+                    Blank / Invalid phone number
+                  </Label>
+                )}
+                {plusError1 && (
+                  <Label basic color="red">
+                    Press + to add new details, before submitting
                   </Label>
                 )}
               </Grid.Column>
@@ -221,7 +253,7 @@ class App extends React.Component {
                 <Header as="h5">Skills</Header>
                 <div className="mr">
                   {this.skills.map((skill) => (
-                    <div key={this.skills.indexOf(skill)} className="in mr">
+                    <div key={this.skills.indexOf(skill)} className="mr">
                       <Button
                         onClick={(e) => e.preventDefault()}
                         basic
@@ -248,7 +280,12 @@ class App extends React.Component {
                 </Form.Group>
                 {skillsError && (
                   <Label basic color="red">
-                    Skills cann't be empty
+                    Employee's Skill can't be empty
+                  </Label>
+                )}
+                {plusError2 && (
+                  <Label basic color="red">
+                    Press + to add new skill, before submitting
                   </Label>
                 )}
               </Grid.Column>
@@ -260,6 +297,7 @@ class App extends React.Component {
                   <Form.Input
                     name="dob"
                     value={dob}
+                    placeholder="DD/MM/YYYY"
                     onChange={this.handleChange}
                     type="date"
                   />
@@ -280,7 +318,7 @@ class App extends React.Component {
               this.setState({ show: !show });
             }}
           >
-            View Data
+            {!show ? `View` : `Hide`} Data
           </Button>
         </div>
         {show && (
