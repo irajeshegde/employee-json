@@ -167,6 +167,7 @@ class App extends React.Component {
                 <Header as="h5">Name</Header>
                 <Form.Input
                   required
+                  maxLength={40}
                   name="name"
                   placeholder="Employee's Name"
                   type="text"
@@ -180,6 +181,7 @@ class App extends React.Component {
                 <Header as="h5">Designation</Header>
                 <Form.Input
                   required
+                  maxLength={40}
                   placeholder="Employee's Designation"
                   type="text"
                   name="designation"
@@ -206,6 +208,7 @@ class App extends React.Component {
                 <Form.Group>
                   <Form.Input
                     name="type"
+                    maxLength={20}
                     value={type}
                     onChange={this.handleChange}
                     placeholder="Type"
@@ -267,6 +270,7 @@ class App extends React.Component {
                 <Form.Group>
                   <Form.Input
                     name="skill"
+                    maxLength={20}
                     value={skill}
                     onChange={this.handleChange}
                     placeholder="Employee's Skill"
